@@ -10,11 +10,14 @@ class GitIsAwesomeProgram:
         print('Git is awesome')
 
     def greet_user(self):
-        user_input = input("Enter your name: ")
-        if user_input.strip():
-            print(f'Hi, {user_input.strip()}!')
-        else:
-            print('Hi there!')
+        try:
+            user_input = input("Enter your name: ")
+            if user_input.strip():
+                print(f'Hi, {user_input.strip()}!')
+            else:
+                print('Hi there!')
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
     def quit_program(self):
         print('Goodbye!')
@@ -30,15 +33,25 @@ class GitIsAwesomeProgram:
         print('Welcome to the Git is Awesome Program!')
         while True:
             self.display_menu()
-            choice = input("Enter your choice (1-3): ")
-            action = self.menu_options.get(choice)
+            try:
+                choice = input("Enter your choice (1-3): ")
+                action = self.menu_options.get(choice)
 
-            if action:
-                action()
-            else:
-                print('Invalid choice. Please enter a number between 1 and 3.')
+                if action:
+                    action()
+                else:
+                    print('Invalid choice. Please enter a number between 1 and 3.')
+            except KeyboardInterrupt:
+                print("\nOperation cancelled by user.")
+                break
+            except Exception as e:
+                print(f"An unexpected error occurred: {e}")
+                break
 
 
 if __name__ == "__main__":
-    program = GitIsAwesomeProgram()
-    program.run()
+    try:
+        program = GitIsAwesomeProgram()
+        program.run()
+    except Exception as e:
+        print(f"Failed to start the program due to an error: {e}")
